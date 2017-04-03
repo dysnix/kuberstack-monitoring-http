@@ -1,0 +1,19 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: kuberstack-monitoring-http
+  namespace: kube-system
+data:
+  config.yaml: |-
+    defaults:
+      path: "/"
+      is_https: "false"
+      status: "200"
+      timeout: "30"
+      https_valid_check: "true"
+    domains:
+      - name: "example.com"
+        status: "301"
+        timeout: "2"
+      - name: example.com
+        is_https: "true"
