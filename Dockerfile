@@ -1,3 +1,3 @@
 FROM python:3-onbuild
 
-CMD [ "python", "kuberstack-monitoring-events.py" ]
+CMD [ "python", "kuberstack-monitoring-http.py" ]
