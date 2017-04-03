@@ -1,4 +1,4 @@
-## Simple HTTP checker in Kubernetes
+## Simple HTTP checker for Kubernetes
 
 * Check HTTP status code
 * Check response time
