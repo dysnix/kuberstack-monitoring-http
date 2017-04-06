@@ -49,6 +49,7 @@ def get_default_port(is_https):
 def check_url(url, timeout, status, https_valid_check, max_timeout):
     result = {'result': True, 'response_time': 0, 'code': 0, 'description': 'None', 'event_type': 'Normal'}
 
+    # Unaccepted error
     try:
         r = requests.get(url, timeout=max_timeout, verify=https_valid_check, allow_redirects=False)
         result['code'] = r.status_code
@@ -59,13 +60,15 @@ def check_url(url, timeout, status, https_valid_check, max_timeout):
         result['description'] = p
         return result
 
+    # Response time
     if r.elapsed.total_seconds() > timeout:
         result['result'] = False
-        result['event_type'] = 'Error'
+        result['event_type'] = 'Warning'
         result['description'] = 'Response time > {timeout}: {response_time}'.format(timeout=timeout,
                                                                                     response_time=result['response_time'])
         return result
 
+    # Response status
     if r.status_code != status:
         result['result'] = False
         result['event_type'] = 'Error'
