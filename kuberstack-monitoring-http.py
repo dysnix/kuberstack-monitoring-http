@@ -60,19 +60,19 @@ def check_url(url, timeout, status, https_valid_check, max_timeout):
         result['description'] = p
         return result
 
+    # Response status
+    if r.status_code != status:
+        result['result'] = False
+        result['event_type'] = 'Error'
+        result['description'] = 'Invalid status code: {code}'.format(code=result['code'])
+        return result
+
     # Response time
     if r.elapsed.total_seconds() > timeout:
         result['result'] = False
         result['event_type'] = 'Warning'
         result['description'] = 'Response time > {timeout}: {response_time}'.format(timeout=timeout,
                                                                                     response_time=result['response_time'])
-        return result
-
-    # Response status
-    if r.status_code != status:
-        result['result'] = False
-        result['event_type'] = 'Error'
-        result['description'] = 'Invalid status code: {code}'.format(code=result['code'])
         return result
 
     return {'result': True}
